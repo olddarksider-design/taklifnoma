@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Никоҳ тўйи таклифномаси — Одилбек ва Зулфияой</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#e8c776; --gold-deep:#b98a3e; --rose:#e0476a; --ink:#fff6ec;
+  --w:min(84vw,430px);
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit;margin:0}
+body{font-family:'Playfair Display',Georgia,'Times New Roman',serif;color:var(--ink);background:#1b0610;min-height:100vh;overflow-x:hidden;line-height:1.6}
+body.locked{overflow:hidden}
+
+/* ---------- Orqa fon: xiralashtirilgan sahna + sekin kattalashish ---------- */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(160deg,#3b0a24,#6b1a3a 45%,#c2603f)}
+.bg svg{position:absolute;inset:-6%;width:112%;height:112%;filter:blur(5px) saturate(1.1);animation:ken 32s ease-in-out infinite alternate}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,transparent 0,rgba(20,3,12,.6) 100%),linear-gradient(180deg,rgba(40,6,24,.3),rgba(20,3,12,.55))}
+@keyframes ken{from{transform:scale(1) translate(0,0)}to{transform:scale(1.18) translate(-2%,-1.5%)}}
+.bokeh{animation:twinkle 5s ease-in-out infinite alternate}
+.bokeh:nth-child(2n){animation-duration:7s}
+@keyframes twinkle{from{opacity:.15}to{opacity:.5}}
+
+/* ---------- Gulbarglar ---------- */
+.petal{position:fixed;top:-5vh;z-index:3;aspect-ratio:3/4;border-radius:80% 0 80% 0;background:linear-gradient(135deg,#ffb3c1,#e0476a);opacity:.75;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{to{transform:translate3d(var(--dx),112vh,0) rotate(540deg)}}
+
+/* ---------- Konvert ---------- */
+.intro{position:fixed;inset:0;z-index:10;display:grid;place-content:center;justify-items:center;gap:2.4rem;perspective:1100px;background:radial-gradient(circle at 50% 40%,rgba(120,24,60,.55),rgba(20,3,12,.94));transition:opacity .9s ease,transform .9s ease,visibility .9s}
+.intro.leave{opacity:0;transform:scale(1.5);visibility:hidden;pointer-events:none}
+.env{position:relative;width:var(--w);aspect-ratio:3/2;cursor:pointer;transform-style:preserve-3d;transform:rotateX(10deg);animation:float 5s ease-in-out infinite;outline:none;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55));transition:transform .8s ease}
+.env:focus-visible{filter:drop-shadow(0 0 0 #fff) drop-shadow(0 0 14px var(--gold))}
+.env>*{position:absolute}
+@keyframes float{50%{transform:rotateX(10deg) translateY(-12px) rotateZ(-.6deg)}}
+.back{inset:0;background:linear-gradient(145deg,#f1d6b6,#d2a979);border-radius:6px}
+.paper{left:5%;right:5%;top:5%;height:92%;z-index:2;border-radius:4px;background:linear-gradient(#fffaf0,#f6e9d3);display:grid;justify-items:center;align-content:start;padding:.5rem;color:#8a6428;text-align:center;transition:transform 1s cubic-bezier(.2,.8,.2,1) .7s}
+.paper svg{width:34%;overflow:visible;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+.paper small{font-size:.8rem;letter-spacing:.12em;font-style:italic}
+.front{inset:0;z-index:3;border-radius:6px;background:linear-gradient(145deg,#f8e6cf,#e3bf93);clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%)}
+.front svg{position:absolute;left:50%;bottom:5%;width:20%;transform:translateX(-50%);color:#a4623f;opacity:.85}
+.flap{left:0;right:0;top:0;height:54%;z-index:4;transform-origin:top;background:linear-gradient(180deg,#e9c59b,#d6ad7e);clip-path:polygon(0 0,100% 0,50% 100%);transition:transform .9s ease}
+.seal{left:50%;top:54%;width:64px;height:64px;margin:-32px 0 0 -32px;z-index:6;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ff6a7f,#c8284a 55%,#7d0f2b);box-shadow:0 0 0 3px var(--gold),0 8px 20px rgba(0,0,0,.45);animation:beat 1.4s infinite}
+.seal svg{width:30px;fill:var(--gold)}
+.seal:focus-visible{outline:3px solid #fff;outline-offset:4px}
+@keyframes beat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.15)}28%{transform:scale(.95)}}
+.env.open{animation:none;transform:rotateX(0)}
+.env.open .flap{transform:rotateX(180deg);z-index:1;transition:transform .9s ease,z-index 0s .45s}
+.env.open .paper{transform:translateY(-62%)}
+.env.expand .paper{transform:translateY(-66%) scale(1.35);transition-delay:0s;transition-duration:.9s}
+.env.open .seal{animation:none;opacity:0;transform:scale(2);pointer-events:none;transition:opacity .5s,transform .5s}
+.hint{color:var(--gold);letter-spacing:.1em;font-style:italic;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+
+/* ---------- Taklifnoma kartasi (Glassmorphism) ---------- */
+main{position:relative;z-index:2;min-height:100vh;display:grid;place-items:center;padding:clamp(1rem,4vw,3rem) 1rem 6rem;visibility:hidden;opacity:0}
+body.opened main{visibility:visible;animation:cardIn 1.2s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes cardIn{from{opacity:0;transform:translateY(80px) scale(.82)}to{opacity:1;transform:none}}
+.card{position:relative;overflow:hidden;width:min(100%,640px);padding:clamp(1.6rem,5vw,3rem) clamp(1.2rem,5vw,2.6rem);text-align:center;border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.07));-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.3);box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+.card::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(232,199,118,.16),transparent 30%);animation:spin 16s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card>*{position:relative}
+.couple{display:block;width:110px;margin:0 auto;color:var(--gold);opacity:.92}
+.rings{width:150px;margin:.4rem auto 1rem;cursor:pointer;perspective:500px;outline:none;transition:transform .6s cubic-bezier(.3,1.6,.5,1)}
+.rings svg{display:block;width:100%;overflow:visible;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4));animation:bob 4s ease-in-out infinite}
+.rings:hover,.rings:focus-visible{transform:scale(1.3) rotate(20deg)}
+.rings.spin svg{animation:flip 1s ease}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes flip{to{transform:rotateY(360deg) scale(1.1)}}
+
+h2{font-weight:400}
+.hello{font-size:clamp(1.9rem,7vw,2.6rem);font-style:italic;color:var(--gold)}
+.welcome{font-size:clamp(1.15rem,4vw,1.4rem);margin:.2rem 0 1.2rem}
+p{font-size:clamp(1rem,3.4vw,1.15rem);line-height:1.85;color:#fff3e6}
+.names{margin:1.2rem 0}
+.name{display:block;font-size:clamp(2.8rem,13vw,4.6rem);font-style:italic;font-weight:600;line-height:1.15;color:transparent;background:linear-gradient(100deg,#fff1c4,#e8c776 30%,#fff 50%,#e8c776 70%,#b98a3e);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;animation:shine 5s linear infinite;filter:drop-shadow(0 4px 14px rgba(0,0,0,.45))}
+@keyframes shine{to{background-position:-250% 0}}
+.amp{display:flex;align-items:center;justify-content:center;gap:.8rem;color:var(--gold);font-style:italic;font-size:1.5rem}
+.amp::before,.amp::after{content:"";height:1px;width:22%;background:linear-gradient(90deg,transparent,var(--gold))}
+.amp::after{transform:scaleX(-1)}
+.host{margin-top:1.4rem}
+.host strong{color:var(--gold);font-weight:600;font-size:1.12em}
+.addr{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.25)}
+.addr svg{width:18px;height:18px;vertical-align:-3px;fill:var(--rose);margin-right:.3rem}
+
+/* ---------- Taymer ---------- */
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:1.6rem}
+.cd div{padding:.8rem .2rem;border-radius:16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22)}
+.cd b{display:block;font-size:clamp(1.5rem,7vw,2.2rem);font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums}
+.cd span{font-size:.78rem;letter-spacing:.06em}
+.cd b.tick{animation:tick .4s ease}
+@keyframes tick{from{transform:translateY(-8px);opacity:.3}}
+#cdNote{font-size:.95rem;margin-top:.9rem;opacity:.9}
+
+/* ---------- Ko'rinish animatsiyasi ---------- */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease;transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- Musiqa tugmasi ---------- */
+.music{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--gold);cursor:pointer;display:grid;place-items:center;transition:transform .3s}
+.music:hover{transform:scale(1.1)}
+.music:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.bars{display:flex;gap:3px;align-items:flex-end;height:18px}
+.bars i{width:3px;height:6px;border-radius:2px;background:currentColor}
+.music.on .bars i{animation:eq .9s ease-in-out infinite alternate}
+.music.on .bars i:nth-child(2){animation-delay:.2s}
+.music.on .bars i:nth-child(3){animation-delay:.4s}
+@keyframes eq{to{height:18px}}
+.music:not(.on)::after{content:"";position:absolute;width:30px;height:2px;background:currentColor;transform:rotate(-45deg)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:480px){.card{border-radius:22px}.rings{width:120px}.couple{width:90px}}
+@media (max-height:520px) and (orientation:landscape){:root{--w:min(56vw,340px)}.intro{gap:1rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body class="locked">
+
+<!-- Umumiy SVG: gradient, kelin-kuyov, nikoh uzuklari -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1c4"/><stop offset=".5" stop-color="#e8c776"/><stop offset="1" stop-color="#b98a3e"/>
+    </linearGradient>
+  </defs>
+  <symbol id="couple" viewBox="0 0 200 220">
+    <g fill="currentColor">
+      <circle cx="72" cy="52" r="13"/>
+      <path d="M52 212L55 102Q58 78 72 76Q86 78 89 102L92 212Z"/>
+      <circle cx="128" cy="56" r="12"/>
+      <path d="M121 80Q128 74 135 80L133 112Q166 150 180 212L96 212Q112 150 123 112Z"/>
+      <path d="M118 50Q102 84 98 150Q114 118 126 68Z" opacity=".55"/>
+      <path d="M86 100Q96 128 114 124" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+      <path d="M100 40C84 28 90 12 100 20C110 12 116 28 100 40Z" fill="#e0476a"/>
+    </g>
+  </symbol>
+  <symbol id="rings" viewBox="0 0 120 80">
+    <g fill="none" stroke="url(#gold)" stroke-width="7"><circle cx="44" cy="46" r="24"/><circle cx="76" cy="46" r="24"/></g>
+    <g fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5"><circle cx="44" cy="46" r="27.5"/><circle cx="76" cy="46" r="27.5"/></g>
+    <path d="M44 7L53 16L44 26L35 16Z" fill="#eaf6ff" stroke="url(#gold)" stroke-width="2"/>
+    <path d="M35 16H53M44 7V26" stroke="#9cc8e8" stroke-width=".8"/>
+  </symbol>
+</svg>
+
+<!-- Orqa fon -->
+<div class="bg" aria-hidden="true">
+  <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="sun" cx=".5" cy=".42" r=".6">
+        <stop offset="0" stop-color="#ffd9a0"/><stop offset=".45" stop-color="#e98a6a" stop-opacity=".75"/><stop offset="1" stop-color="#6b1a3a" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="800" height="600" fill="url(#sun)"/>
+    <g fill="#fff">
+      <circle class="bokeh" cx="110" cy="130" r="34"/><circle class="bokeh" cx="240" cy="70" r="18"/>
+      <circle class="bokeh" cx="610" cy="110" r="40"/><circle class="bokeh" cx="700" cy="250" r="22"/>
+      <circle class="bokeh" cx="90" cy="330" r="26"/><circle class="bokeh" cx="520" cy="60" r="14"/>
+      <circle class="bokeh" cx="680" cy="400" r="30"/><circle class="bokeh" cx="170" cy="440" r="20"/>
+    </g>
+    <path d="M0 470Q200 430 400 465T800 450V600H0Z" fill="#2a0718"/>
+    <use href="#couple" x="285" y="245" width="230" height="253" style="color:#1d0512"/>
+  </svg>
+</div>
+
+<!-- Konvert -->
+<section class="intro" id="intro" aria-label="Таклифнома конверти">
+  <div class="env" id="env" role="button" tabindex="0" aria-label="Таклифномани очиш">
+    <div class="back"></div>
+    <div class="paper">
+      <svg viewBox="0 0 120 80"><use href="#rings"/></svg>
+      <small>Таклифнома</small>
+    </div>
+    <div class="front"><svg viewBox="0 0 200 220"><use href="#couple"/></svg></div>
+    <div class="flap"></div>
+    <button class="seal" id="seal" type="button" aria-label="Таклифномани очиш">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </button>
+  </div>
+  <p class="hint">Очиш учун юракчани босинг</p>
+</section>
+
+<!-- Taklifnoma -->
+<main>
+  <article class="card">
+    <svg class="couple rv" viewBox="0 0 200 220" aria-hidden="true"><use href="#couple"/></svg>
+    <div class="rings rv" id="rings" tabindex="0" role="button" aria-label="Никоҳ узуклари"><svg viewBox="0 0 120 80"><use href="#rings"/></svg></div>
+    <h2 class="hello rv">Ассалому алайкум!</h2>
+    <p class="welcome rv">Азиз меҳмонимиз бўлинг!</p>
+    <p class="rv">Сизни ҳаётнинг оила деб аталмиш мўқаддас қасрига қадам қўяётган азиз фарзандларимиз:</p>
+    <div class="names rv">
+      <span class="name">Одилбек</span>
+      <span class="amp">ва</span>
+      <span class="name">Зулфияой</span>
+    </div>
+    <p class="rv">ларнинг никоҳ тўйлари муносабати билан 2026-йил 24-Сентябр куни ёзиладиган наҳорги ош дастурхонимизга таклиф этамиз.</p>
+    <p class="host rv">Ҳурмат ва эҳтиром ила:<br><strong>Алишер Рўзиқулов хонадони</strong></p>
+    <p class="addr rv">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Манзил: Кўкдала тумани Гулистон МФЙ Торжилға қишлоғи
+    </p>
+    <div class="cd rv" id="cd" aria-live="off">
+      <div><b id="d">00</b><span>Кун</span></div>
+      <div><b id="h">00</b><span>Соат</span></div>
+      <div><b id="m">00</b><span>Дақиқа</span></div>
+      <div><b id="s">00</b><span>Сония</span></div>
+    </div>
+    <p id="cdNote" class="rv">24-Сентябр, соат 08:00 гача</p>
+  </article>
+</main>
+
+<!-- Musiqa tugmasi -->
+<button class="music" id="music" type="button" aria-label="Мусиқани ёқиш ёки ўчириш" aria-pressed="false">
+  <span class="bars"><i></i><i></i><i></i></span>
+</button>
+
+<script>
+/* ===== Sozlamalar: to'y sanasi (Toshkent vaqti, UTC+5) ===== */
+var TARGET = new Date('2026-09-24T08:00:00+05:00').getTime();
+
+var $ = function (s) { return document.querySelector(s); };
+
+/* ===== Gulbarglar ===== */
+(function () {
+  for (var i = 0; i < 16; i++) {
+    var p = document.createElement('span');
+    p.className = 'petal';
+    p.style.cssText = 'left:' + Math.random() * 100 + 'vw;width:' + (9 + Math.random() * 10) + 'px;--dx:' +
+      ((Math.random() - 0.5) * 160) + 'px;animation-duration:' + (9 + Math.random() * 9) + 's;animation-delay:' + (-Math.random() * 14) + 's';
+    document.body.appendChild(p);
+  }
+})();
+
+/* ===== Musiqa (WebAudio orqali yaratiladigan yumshoq melodiya) ===== */
+var ac, master, timer, step = 0, musicOn = false;
+var chords = [[261.63, 329.63, 392], [220, 261.63, 329.63], [174.61, 220, 261.63], [196, 246.94, 293.66]];
+function note(f, t, d, type, g) {
+  var o = ac.createOscillator(), e = ac.createGain();
+  o.type = type; o.frequency.value = f;
+  e.gain.setValueAtTime(0.0001, t);
+  e.gain.linearRampToValueAtTime(g, t + 0.04);
+  e.gain.exponentialRampToValueAtTime(0.0001, t + d);
+  o.connect(e); e.connect(master);
+  o.start(t); o.stop(t + d + 0.05);
+}
+function beat() {
+  var t = ac.currentTime + 0.05, c = chords[Math.floor(step / 8) % 4], k = step % 8;
+  if (k === 0) c.forEach(function (f) { note(f / 2, t, 3.4, 'sine', 0.06); });
+  note(c[[0, 1, 2, 1, 2, 1, 0, 1][k]] * 2, t, 1.6, 'triangle', 0.07);
+  step++;
+}
+function setMusic(on) {
+  try {
+    if (on && !ac) {
+      ac = new (window.AudioContext || window.webkitAudioContext)();
+      master = ac.createGain(); master.gain.value = 0.55;
+      var dl = ac.createDelay(), fb = ac.createGain();
+      dl.delayTime.value = 0.34; fb.gain.value = 0.35;
+      master.connect(ac.destination); master.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(ac.destination);
+    }
+    if (on) { ac.resume(); clearInterval(timer); timer = setInterval(beat, 430); beat(); }
+    else { clearInterval(timer); }
+    musicOn = on;
+  } catch (err) { musicOn = false; }
+  $('#music').classList.toggle('on', musicOn);
+  $('#music').setAttribute('aria-pressed', String(musicOn));
+}
+$('#music').addEventListener('click', function () { setMusic(!musicOn); });
+
+/* ===== Konvertni ochish ===== */
+var opened = false;
+function openEnvelope() {
+  if (opened) return;
+  opened = true;
+  $('#env').classList.add('open');
+  if (!musicOn) setMusic(true);
+  setTimeout(function () { $('#env').classList.add('expand'); }, 1700);
+  setTimeout(function () {
+    $('#intro').classList.add('leave');
+    document.body.classList.remove('locked');
+    document.body.classList.add('opened');
+    window.scrollTo(0, 0);
+    reveal();
+  }, 2200);
+}
+$('#env').addEventListener('click', openEnvelope);
+$('#env').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+});
+
+/* ===== Matnlarni ketma-ket ko'rsatish ===== */
+function reveal() {
+  var items = document.querySelectorAll('.rv');
+  items.forEach(function (el, i) { el.style.setProperty('--d', (0.5 + i * 0.12) + 's'); });
+  if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.15 });
+  items.forEach(function (el) { io.observe(el); });
+}
+
+/* ===== Uzuklar: bosilganda aylanadi ===== */
+var rings = $('#rings');
+function spinRings() { rings.classList.remove('spin'); void rings.offsetWidth; rings.classList.add('spin'); setTimeout(function () { rings.classList.remove('spin'); }, 1000); }
+rings.addEventListener('click', spinRings);
+rings.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); spinRings(); } });
+
+/* ===== Taymer ===== */
+var prev = {};
+function pad(n) { return n < 10 ? '0' + n : String(n); }
+function tick() {
+  var diff = TARGET - Date.now(), over = diff <= 0;
+  if (over) diff = 0;
+  var v = { d: Math.floor(diff / 864e5), h: Math.floor(diff / 36e5) % 24, m: Math.floor(diff / 6e4) % 60, s: Math.floor(diff / 1e3) % 60 };
+  Object.keys(v).forEach(function (k) {
+    var el = document.getElementById(k), txt = pad(v[k]);
+    if (prev[k] !== txt) {
+      el.textContent = txt;
+      if (prev[k] !== undefined) { el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }
+      prev[k] = txt;
+    }
+  });
+  $('#cdNote').textContent = over ? 'Белгиланган вақт ўтди — 24-Сентябр, соат 08:00' : '24-Сентябр, соат 08:00 гача';
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
